@@ -9,6 +9,14 @@ export function activate(context: vscode.ExtensionContext) {
 		HelloWorldPanel.createOrShow(context.extensionUri);
 	}));
 
+	context.subscriptions.push(vscode.commands.registerCommand('vstodo.refresh', () => {
+		HelloWorldPanel.kill();
+		HelloWorldPanel.createOrShow(context.extensionUri);
+		vscode.commands.executeCommand(
+			"workbench.action.webview.openDeveloperTools"
+		);
+	}));
+
 	context.subscriptions.push(vscode.commands.registerCommand("vscode.askQuestion", () => {
 		vscode.window.showInformationMessage("How are you?", "good", "bad").then(response => {
 			if (response === "bad") {
